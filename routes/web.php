@@ -26,9 +26,9 @@ Route::group(['prefix'=>'admin','as'=>'admin'],function(){
         Route::get('/index',[VendorContrller::class,'index'])->name('index');
         Route::get('/create',[VendorContrller::class,'create'])->name('create');
         Route::POST('/store',[VendorContrller::class,'store'])->name('store');
-        Route::get('/edit',[VendorContrller::class,'edit']);
-        Route::POST('/update',[VendorContrller::class,'update']);
-        Route::POST('/delete',[VendorContrller::class,'delete']);
+        Route::get('/edit/{id}',[VendorContrller::class,'edit'])->name('edit');
+        Route::PUT('/update',[VendorContrller::class,'update'])->name('update');
+        Route::DELETE('/delete',[VendorContrller::class,'delete'])->name('delete');
 
 
     });

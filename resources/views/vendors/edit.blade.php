@@ -16,17 +16,19 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Create Vendor</h4>
+                                    <h4>Edit Vendor</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
 
-                            <form method="post" action="{{ route('admin.vendor.store') }}">
+
+                            <form method="post" action="{{ route('admin.vendor.update') }}">
+                                @method('PUT')
+                                <input type="hidden" name="id" value="{{ $vendor->id }}" />
                                 @include('Vendors._form')
-
-
                             </form>
+
 
 
 

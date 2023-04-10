@@ -4,7 +4,7 @@
 |           Scroll To Top               |
 |                                       |
 =========================================
-*/ 
+*/
 $('.scrollTop').click(function() {
     $("html, body").animate({scrollTop: 0});
 });
@@ -30,7 +30,7 @@ function checkall(clickchk, relChkbox) {
 
     checker.click(function () {
         multichk.prop('checked', $(this).prop('checked'));
-    });    
+    });
 }
 
 
@@ -74,7 +74,7 @@ function checkall(clickchk, relChkbox) {
 
     checker.click(function () {
         multichk.prop('checked', $(this).prop('checked'));
-    });    
+    });
 }
 
 /*
@@ -122,13 +122,65 @@ function GetIEVersion() {
   var Idx = sAgent.indexOf("MSIE");
 
   // If IE, return version number.
-  if (Idx > 0) 
+  if (Idx > 0)
     return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
 
   // If IE 11 then look for Updated user agent string.
-  else if (!!navigator.userAgent.match(/Trident\/7\./)) 
+  else if (!!navigator.userAgent.match(/Trident\/7\./))
     return 11;
 
   else
     return 0; //It is not IE
 }
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+
+$(document).on('click','.delete_btn',function(e){
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    Swal.fire({
+        title: 'Are you sure ?',
+        text: "delete this vendor !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url:'/admin/vendor/delete',
+                method:'DELETE',
+                data:{
+                    'id':id
+            },
+                success:function(data){
+                    if(data.message=='success'){
+                        $("#"+id).remove();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            )
+                        }
+                    },
+                error:function(jqXHR, exception){
+                    if(jqXHR.status==404){
+                        Swal.fire(
+                            'error!',
+                            'error.',
+                            'danger'
+                            )
+                    }
+                }
+            })
+
+        }
+      })
+})
+
