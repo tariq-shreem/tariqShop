@@ -21,6 +21,9 @@
                 <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
                     <div class="statbox widget box box-shadow">
                         <div class="widget-header">
+                            <a href="#" class="btn btn-primary">create</a>
+                            <a href="{{ route('admin.vendor.import') }}" class="btn btn-success">import</a>
+
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                     <h4>Show Vendor</h4>

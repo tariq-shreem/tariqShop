@@ -24,11 +24,15 @@ Route::group(['prefix'=>'admin','as'=>'admin'],function(){
     Route::group(['prefix'=>'vendor','as'=>'.vendor.'],function(){
 
         Route::get('/index',[VendorContrller::class,'index'])->name('index');
+        Route::get('/import',[VendorContrller::class,'import'])->name('import');
+        Route::post('/import/store',[VendorContrller::class,'storeImport'])->name('import.store');
+
         Route::get('/create',[VendorContrller::class,'create'])->name('create');
         Route::POST('/store',[VendorContrller::class,'store'])->name('store');
         Route::get('/edit/{id}',[VendorContrller::class,'edit'])->name('edit');
         Route::PUT('/update',[VendorContrller::class,'update'])->name('update');
         Route::DELETE('/delete',[VendorContrller::class,'delete'])->name('delete');
+
 
 
     });

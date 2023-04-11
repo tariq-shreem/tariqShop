@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use Excel;
 
 use App\DataTables\VendorDataTable;
 use App\Http\Requests\VendorCreateRequest;
+use App\Http\Requests\Vendors\VendorImportRequest;
 use App\Http\Requests\Vendors\VendorUpdateRequest;
+use App\Imports\Vendors\VendorImport;
 use App\Models\Vendor;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
@@ -39,6 +42,20 @@ class VendorContrller extends Controller
 
     }
 
+    public function import(){
+
+        return view('vendors.import');
+    }
+
+    public function storeImport(VendorImportRequest $request){
+
+       Excel::import(new VendorImport(),$request->sheet);
+
+       Alert::toast('vendor added', 'success');
+
+       return redirect(route('admin.vendor.index'));
+
+    }
     public function edit($id){
 
         $vendor = Vendor::find($id);
